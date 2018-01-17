@@ -1,5 +1,8 @@
 #include <Servo.h>
 
+int buttonPin = 0;
+int buttonCompareValue = 1023/2; // values: 0-1023
+
 // create servo variables for the motors
 Servo motor1; // left  1
 Servo motor2; // left  2
@@ -23,4 +26,21 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
 
+
+  
 }
+
+// returns 1 if button analog value is higher tan compare value
+int readBtn(){
+  if (analogRead(buttonPin) > buttonCompareValue) {
+    delay(100);
+    if (analogRead(buttonPin) > buttonCompareValue) {
+      return 1;
+    }
+  }
+  return 0;
+}
+
+
+
+

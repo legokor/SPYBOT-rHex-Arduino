@@ -23,15 +23,25 @@ void setup() {
   motor6.attach(7);
 
   motorsStop();
+  
+  delay(3000);
+  motorsFwd();
+  delay(1000);
+  motorsStop();
+
+  delay(10000);
+  motorsFwd();
+  delay(10000);
+  motorsStop();
+  
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
 
-  motorsFwd();
-  delay(3000);
-  motorsStop();
-  delay(3000);
+
+
+
 
   
 }

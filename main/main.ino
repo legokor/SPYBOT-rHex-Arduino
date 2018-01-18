@@ -21,11 +21,17 @@ void setup() {
   motor4.attach(5);
   motor5.attach(6);
   motor6.attach(7);
+
+  motorsStop();
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
 
+  motorsFwd();
+  delay(3000);
+  motorsStop();
+  delay(3000);
 
   
 }
@@ -40,6 +46,34 @@ int readBtn(){
   }
   return 0;
 }
+
+void motorsStop() {
+  motor1.write(91);   //stable stop
+  motor2.write(115);  //stable stop
+  motor3.write(91);   //stable stop
+  motor4.write(92);   //stable stop
+  motor5.write(91);   //stable stop
+  motor6.write(93);   //stable stop
+}
+
+void motorsFwd(){
+  motorsStop();
+  delay(20);
+  motor1.write(1);
+  motor2.write(1);
+  motor3.write(1);
+  motor4.write(179);
+  motor5.write(179);
+  motor6.write(179);
+}
+
+
+
+
+
+
+
+
 
 
 

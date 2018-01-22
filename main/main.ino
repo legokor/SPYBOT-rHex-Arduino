@@ -1,5 +1,7 @@
+
 #include <Servo.h>
 
+//-------------------------------------------------------------- variables ----------------------------------------
 int buttonPin = 0;
 int buttonCompareValue = 1023/2; // values: 0-1023
 
@@ -11,17 +13,13 @@ Servo motor4; // right 1
 Servo motor5; // right 2
 Servo motor6; // right 3
 
+//-------------------------------------------------------------- setup --------------------------------------------
 void setup() {
   // put your setup code here, to run once:
 
   // attach servos to pins
-  motor1.attach(2);
-  motor2.attach(3);
-  motor3.attach(4);
-  motor4.attach(5);
-  motor5.attach(6);
-  motor6.attach(7);
-
+  attachServos();
+  
   motorsStop();
   
   delay(3000);
@@ -36,15 +34,15 @@ void setup() {
   
 }
 
+//-------------------------------------------------------------- loop ----------------------------------------------
 void loop() {
   // put your main code here, to run repeatedly:
 
 
-
-
-
   
 }
+
+//-------------------------------------------------------------- functions -----------------------------------------
 
 // returns 1 if button analog value is higher tan compare value
 int readBtn(){
@@ -57,6 +55,7 @@ int readBtn(){
   return 0;
 }
 
+// stops all motors
 void motorsStop() {
   motor1.write(91);   //stable stop
   motor2.write(115);  //stable stop
@@ -66,6 +65,7 @@ void motorsStop() {
   motor6.write(93);   //stable stop
 }
 
+// rotate all motors forward
 void motorsFwd(){
   motorsStop();
   delay(20);
@@ -80,8 +80,15 @@ void motorsFwd(){
 
 
 
-
-
+// attaches servos to pins
+void attachServos() {
+  motor1.attach(2);
+  motor2.attach(3);
+  motor3.attach(4);
+  motor4.attach(5);
+  motor5.attach(6);
+  motor6.attach(7);
+}
 
 
 

@@ -6,7 +6,7 @@
 int buttonPin = 0;
 int buttonCompareValue = 1023/2; // values: 0-1023
 
-int commandByte = 0;
+char commandChar;
 
 // create servo variables for the motors
 Servo motor1; // left  1
@@ -39,8 +39,8 @@ void loop() {
   // put your main code here, to run repeatedly:
 
   if (Serial.available()) {
-    commandByte = Serial.read();
-    processCommand(commandByte);
+    commandChar = Serial.read();
+    processCommand(commandChar);
   }
   
 }
@@ -58,9 +58,27 @@ int readBtn(){
   return 0;
 }
 
-// do actions in according to recived byte
-void processCommand(int command) {
+// do actions according to recived byte
+void processCommand(char command) {
   
+  switch(command){
+    case 'w': {
+      motorsFwd();
+      Serial.write("forward\n");
+    }
+    break;
+    
+    case 's': {
+      motorsStop();
+      Serial.write("stop\n");
+    }
+    break;
+    
+    default: {
+      Serial.write("invalid command byte\n");
+    }
+    break;
+  }
 }
 
 

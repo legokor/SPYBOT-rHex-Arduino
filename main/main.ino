@@ -1,9 +1,12 @@
 
 #include <Servo.h>
+#include <SoftwareSerial.h>
 
 //-------------------------------------------------------------- variables ----------------------------------------
 int buttonPin = 0;
 int buttonCompareValue = 1023/2; // values: 0-1023
+
+int commandByte = 0;
 
 // create servo variables for the motors
 Servo motor1; // left  1
@@ -13,32 +16,32 @@ Servo motor4; // right 1
 Servo motor5; // right 2
 Servo motor6; // right 3
 
+
 //-------------------------------------------------------------- setup --------------------------------------------
 void setup() {
   // put your setup code here, to run once:
+  
 
   // attach servos to pins
   attachServos();
-  
-  motorsStop();
-  
-  delay(3000);
-  motorsFwd();
-  delay(1000);
   motorsStop();
 
-  delay(10000);
-  motorsFwd();
-  delay(10000);
-  motorsStop();
+  Serial.begin(9600);
+  while (!Serial) {
+    ; // wait for serial port to connect. Needed for native USB port only
+  }
   
+  Serial.write("Setup done.\n");
 }
 
 //-------------------------------------------------------------- loop ----------------------------------------------
 void loop() {
   // put your main code here, to run repeatedly:
 
-
+  if (Serial.available()) {
+    commandByte = Serial.read();
+    processCommand(commandByte);
+  }
   
 }
 
@@ -55,6 +58,12 @@ int readBtn(){
   return 0;
 }
 
+// do actions in according to recived byte
+void processCommand(int command) {
+  
+}
+
+
 // stops all motors
 void motorsStop() {
   motor1.write(91);   //stable stop
@@ -64,6 +73,7 @@ void motorsStop() {
   motor5.write(91);   //stable stop
   motor6.write(93);   //stable stop
 }
+
 
 // rotate all motors forward
 void motorsFwd(){
@@ -76,8 +86,6 @@ void motorsFwd(){
   motor5.write(179);
   motor6.write(179);
 }
-
-
 
 
 // attaches servos to pins

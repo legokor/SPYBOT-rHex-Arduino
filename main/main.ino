@@ -8,6 +8,14 @@ int buttonCompareValue = 1023/2; // values: 0-1023
 
 char commandChar;
 
+int dataIn = 0;
+/*
+ * 0 == stop
+ * 1 == forward
+ * 2 == left
+ * 3 == right
+ */
+
 // create servo variables for the motors
 Servo motor1; // left  1
 Servo motor2; // left  2
@@ -38,11 +46,26 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
 
-  if (Serial.available()) {
-    commandChar = Serial.read();
-    processCommand(commandChar);
+  if (Serial.available() > 0) {
+    dataIn = Serial.read();
+  }
+
+  // do the movement as the dataIn says
+  if (dataIn == 0) {
+    motorsStop();
   }
   
+  if (dataIn == 1) {
+    motorsFwd();
+  }
+  
+  if (dataIn == 2) {
+    motorsLeft();
+  }
+  
+  if (dataIn == 3) {
+    motorsRight();
+  }
 }
 
 //-------------------------------------------------------------- functions -----------------------------------------
@@ -93,7 +116,7 @@ void motorsStop() {
 }
 
 
-// rotate all motors forward
+// go forward
 void motorsFwd(){
   motorsStop();
   delay(20);
@@ -116,6 +139,29 @@ void attachServos() {
   motor6.attach(7);
 }
 
+// turn right
+void motorsRight(){
+  motorsStop();
+  delay(20);
+  motor1.write(1);
+  motor2.write(1);
+  motor3.write(1);
+  motor4.write(1);
+  motor5.write(1);
+  motor6.write(1);
+}
+
+// turn left
+void motorsLeft(){
+  motorsStop();
+  delay(20);
+  motor1.write(179);
+  motor2.write(179);
+  motor3.write(179);
+  motor4.write(179);
+  motor5.write(179);
+  motor6.write(179);
+}
 
 
 

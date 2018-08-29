@@ -47,35 +47,6 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
 
-  if (Serial.available() > 0) {
-    dataIn = Serial.read();
-  }
-
-  // do the movement as the dataIn says
-  if (dataIn == 0) {
-    motorsStop();
-    dataIn == -1;
-  }
-  
-  if (dataIn == 1) {
-    motorsFwd();
-    dataIn == -1;
-  }
-
-  if (dataIn == 2) {
-    motorsBck();
-    dataIn == -1;
-  }
-  
-  if (dataIn == 3) {
-    motorsLeft();
-    dataIn == -1;
-  }
-  
-  if (dataIn == 4) {
-    motorsRight();
-    dataIn == -1;
-  }
 }
 
 //-------------------------------------------------------------- functions -----------------------------------------
@@ -90,30 +61,6 @@ int readBtn(){
   }
   return 0;
 }
-
-// do actions according to recived byte
-void processCommand(char command) {
-  
-  switch(command){
-    case 'w': {
-      motorsFwd();
-      Serial.write("forward\n");
-    }
-    break;
-    
-    case 's': {
-      motorsStop();
-      Serial.write("stop\n");
-    }
-    break;
-    
-    default: {
-      Serial.write("invalid command byte\n");
-    }
-    break;
-  }
-}
-
 
 // stops all motors
 void motorsStop() {

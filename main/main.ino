@@ -3,7 +3,7 @@
 #include <SoftwareSerial.h>
 
 //-------------------------------------------------------------- variables ----------------------------------------
-int buttonPin = 0;
+int buttonPin = 13;
 int buttonCompareValue = 1023/2; // values: 0-1023
 
 char commandChar;
@@ -29,7 +29,7 @@ Servo motor6; // right 3
 //-------------------------------------------------------------- setup --------------------------------------------
 void setup() {
   // put your setup code here, to run once:
-  
+  pinMode(LED_BUILTIN, OUTPUT); digitalWrite(LED_BUILTIN, LOW);
 
   // attach servos to pins
   attachServos();
@@ -46,7 +46,31 @@ void setup() {
 //-------------------------------------------------------------- loop ----------------------------------------------
 void loop() {
   // put your main code here, to run repeatedly:
-
+  if (Serial.available()) {
+    delay(1);
+     switch (Serial.read()) {
+      case 0: { // STOP
+        digitalWrite(LED_BUILTIN, LOW);
+        break;
+      }
+      case 1: { // FORWARD
+        digitalWrite(LED_BUILTIN, HIGH);
+        break;
+      }
+      case 2: { // BACKWARD
+        
+        break;
+      }
+      case 3: { // RIGHT
+        
+        break;
+      }
+      case 4: { // RIGHT
+        
+        break;
+      }
+     }
+  }
 }
 
 //-------------------------------------------------------------- functions -----------------------------------------
